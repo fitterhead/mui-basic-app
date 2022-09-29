@@ -7,8 +7,16 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
 import { Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function JobCard({ skills, description, title }) {
+export default function JobCard({ skills, description, title, id }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state;
+
+  console.log("job location", location);
   return (
     <Card
       elevation={5}
@@ -63,6 +71,12 @@ export default function JobCard({ skills, description, title }) {
           sx={{ backgroundColor: "#EA526F" }}
           variant="contained"
           size="small"
+          component={Link}
+          state={{ backgroundLocation: location }}
+          to={`/${id}`}
+          // onClick={() => {
+          //   navigate(`/${id}`);
+          // }}
         >
           LEARN MORE
         </Button>
