@@ -1,16 +1,11 @@
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
-import NavBar from "../components/NavBar";
 import JobCard from "../components/JobCard";
 import Grid from "@mui/material/Grid";
 import JobPagination from "../components/JobPagination";
 import jobs from "../jobs.json";
-import theme from "../contexts/Theme";
 import { useState } from "react";
-import LoginModal from "../components/LoginModal";
-import Router from "../routes/Router";
 import DetailPage from "./DetailPage";
 import { useLocation } from "react-router-dom";
 

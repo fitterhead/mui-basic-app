@@ -8,9 +8,19 @@ function RequiredAuth({ children }) {
   const auth = useContext(AuthContext);
   console.log("auth", auth);
   const location = useLocation();
+  console.log("auth state", location);
 
   if (!auth.isLogin) {
-    return <Navigate to="/login" state={{ from: { location } }} replace />;
+    return (
+      <Navigate
+        to="/login"
+        state={{
+          from: location,
+          backgroundLocation: location?.state?.backgroundLocation,
+        }}
+        replace
+      />
+    );
   }
   return children;
 }

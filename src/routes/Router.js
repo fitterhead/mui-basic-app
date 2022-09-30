@@ -5,27 +5,39 @@ import DetailPage from "../pages/DetailPage";
 import HomePage from "../pages/HomePage";
 import RequiredAuth from "../auth/RequiredAuth";
 import LoginModal from "../components/LoginModal";
-import Test from "../components/Test";
-
 export default function Router() {
   const location = useLocation();
   console.log("router location", location);
   const state = location.state;
 
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="login" element={<LoginModal />} />
-        <Route
-          path=":detailId"
-          element={
-            <RequiredAuth>
-              <DetailPage />
-            </RequiredAuth>
-          }
-        />
-      </Route>
-    </Routes>
+    <>
+      <Routes id="homepage" location={state?.backgroundLocation || location}>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route id="login" path="/login" element={<LoginModal />} />
+        </Route>
+      </Routes>
+
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route
+            id="modal"
+            path="jobs/:detailId"
+            element={
+              <RequiredAuth>
+                <DetailPage />
+              </RequiredAuth>
+            }
+          />
+        </Routes>
+      )}
+
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route id="login" path="/login" element={<LoginModal />} />
+        </Routes>
+      )}
+    </>
   );
 }

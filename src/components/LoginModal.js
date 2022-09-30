@@ -22,30 +22,22 @@ export default function LoginModal() {
   console.log({ auth });
   console.log("loginlocation", location);
 
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    let from = location.state?.from?.location.pathname || "/";
+    let from = location.state?.from?.pathname || "/";
 
     auth.userLogin(data, () => {
-      navigate(from, { replace: true });
+      navigate(from, {
+        state: { backgroundLocation: location.state?.backgroundLocation },
+        replace: true,
+      });
     });
   };
 
-  // onsubmit triggered
-
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
+      open={true}
+      // onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
